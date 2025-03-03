@@ -2,14 +2,27 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
-[![Selenium](https://img.shields.io/badge/Selenium-4.0%2B-green.svg)](https://www.selenium.dev/)
-[![yt-dlp](https://img.shields.io/badge/yt--dlp-latest-red.svg)](https://github.com/yt-dlp/yt-dlp)
-[![ffmpeg](https://img.shields.io/badge/ffmpeg-required-orange.svg)](https://ffmpeg.org/)
-[![CLIP](https://img.shields.io/badge/CLIP-vision--model-blueviolet.svg)](https://github.com/openai/CLIP)
-[![AWS S3](https://img.shields.io/badge/Storage-AWS_S3-yellow.svg)](https://aws.amazon.com/s3/)
-[![Google Cloud](https://img.shields.io/badge/Storage-GCP-blue.svg)](https://cloud.google.com/storage)
-[![Tesseract](https://img.shields.io/badge/OCR-Tesseract-darkblue.svg)](https://github.com/tesseract-ocr/tesseract)
-[![OpenCV](https://img.shields.io/badge/OpenCV-4.0%2B-brightgreen.svg)](https://opencv.org/)
+[![yt-dlp](https://img.shields.io/badge/yt--dlp-2023.3.4%2B-red.svg)](https://github.com/yt-dlp/yt-dlp)
+[![Selenium](https://img.shields.io/badge/Selenium-4.1.0%2B-green.svg)](https://www.selenium.dev/)
+[![OpenCV](https://img.shields.io/badge/OpenCV-4.7.0%2B-brightgreen.svg)](https://opencv.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0.0%2B-EE4C2C.svg)](https://pytorch.org/)
+[![Torchvision](https://img.shields.io/badge/Torchvision-0.15.0%2B-EE4C2C.svg)](https://pytorch.org/vision/)
+[![Transformers](https://img.shields.io/badge/Transformers-4.27.0%2B-yellow.svg)](https://huggingface.co/transformers/)
+[![CLIP](https://img.shields.io/badge/CLIP-OpenAI-blueviolet.svg)](https://github.com/openai/CLIP)
+[![Pillow](https://img.shields.io/badge/Pillow-9.4.0%2B-blue.svg)](https://python-pillow.org/)
+[![ffmpeg](https://img.shields.io/badge/ffmpeg--python-0.2.0%2B-orange.svg)](https://github.com/kkroening/ffmpeg-python)
+[![Numpy](https://img.shields.io/badge/Numpy-1.24.2%2B-blue.svg)](https://numpy.org/)
+[![Tesseract](https://img.shields.io/badge/pytesseract-0.3.10%2B-darkblue.svg)](https://github.com/madmaze/pytesseract)
+[![Typer](https://img.shields.io/badge/Typer-0.7.0%2B-green.svg)](https://typer.tiangolo.com/)
+[![Rich](https://img.shields.io/badge/Rich-13.3.0%2B-purple.svg)](https://github.com/Textualize/rich)
+[![Pydantic](https://img.shields.io/badge/Pydantic-1.10.0%2B-blue.svg)](https://pydantic-docs.helpmanual.io/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.95.0%2B-009688.svg)](https://fastapi.tiangolo.com/)
+[![AWS S3](https://img.shields.io/badge/boto3-1.26.0%2B-yellow.svg)](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
+[![Google Cloud](https://img.shields.io/badge/GCS-2.7.0%2B-blue.svg)](https://cloud.google.com/storage)
+[![pytest](https://img.shields.io/badge/pytest-7.3.0%2B-blue.svg)](https://pytest.org/)
+[![MkDocs](https://img.shields.io/badge/MkDocs-1.4.2%2B-blue.svg)](https://www.mkdocs.org/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-1.0.0%2B-orange.svg)](https://jupyter.org/)
+[![matplotlib](https://img.shields.io/badge/matplotlib-3.7.1%2B-blue.svg)](https://matplotlib.org/)
 
 **Extract exactly what you need from YouTube videos with AI-powered precision!** 🔍
 
@@ -66,6 +79,48 @@ pip install -r requirements.txt
 | Tesseract | For OCR functionality |
 | GPU | CUDA-compatible for turbo-charged VLM processing |
 | OS | Windows/macOS/Linux - we've got you covered! |
+
+### 📦 Core Dependencies
+
+| Type | Library | Version | Purpose |
+|------|---------|---------|---------|
+| **Video Processing** | yt-dlp | ≥2023.3.4 | Advanced YouTube downloading |
+|  | ffmpeg-python | ≥0.2.0 | Video frame extraction |
+|  | moviepy | ≥1.0.3 | Video editing and processing |
+| **Web Automation** | selenium | ≥4.1.0 | Browser control for frame capture |
+|  | webdriver-manager | ≥3.8.0 | Browser driver management |
+| **Image Processing** | opencv-python | ≥4.7.0.72 | Computer vision operations |
+|  | Pillow | ≥9.4.0 | Image processing |
+|  | numpy | ≥1.24.2 | Numerical operations |
+|  | scipy | ≥1.10.1 | Scientific computing |
+| **AI & ML** | torch | ≥2.0.0 | Deep learning framework |
+|  | torchvision | ≥0.15.0 | Computer vision models |
+|  | transformers | ≥4.27.0 | NLP and vision models |
+|  | CLIP | git | Vision-language models |
+| **OCR** | pytesseract | ≥0.3.10 | Text extraction from images |
+| **Web & API** | requests | ≥2.28.0 | HTTP requests |
+|  | FastAPI | ≥0.95.0 | API framework |
+|  | uvicorn | ≥0.21.0 | ASGI server |
+| **CLI & UI** | typer[all] | ≥0.7.0 | Command-line interface |
+|  | rich | ≥13.3.0 | Terminal UI and logging |
+| **Configuration** | pydantic | ≥1.10.0 | Data validation and settings |
+| **Storage** | boto3 | ≥1.26.0 | AWS S3 integration |
+|  | google-cloud-storage | ≥2.7.0 | Google Cloud Storage |
+| **Async** | aiohttp | ≥3.8.4 | Async HTTP client/server |
+|  | asyncio | ≥3.4.3 | Async I/O support |
+| **Testing** | pytest | ≥7.3.0 | Testing framework |
+|  | pytest-cov | ≥4.1.0 | Test coverage |
+| **Development** | black | ≥23.3.0 | Code formatting |
+|  | isort | ≥5.12.0 | Import sorting |
+|  | flake8 | ≥6.0.0 | Linting |
+|  | mypy | ≥1.2.0 | Type checking |
+| **Documentation** | mkdocs | ≥1.4.2 | Documentation generator |
+|  | mkdocs-material | ≥9.1.0 | Material theme for MkDocs |
+|  | mkdocstrings | ≥0.20.0 | API documentation |
+| **Notebooks** | jupyter | ≥1.0.0 | Interactive notebooks |
+|  | ipykernel | ≥6.22.0 | Jupyter kernel |
+|  | matplotlib | ≥3.7.1 | Data visualization |
+|  | seaborn | ≥0.12.2 | Statistical visualizations |
 
 ## 🎮 Command Line Superpowers
 
@@ -435,40 +490,53 @@ Our toolkit has a clean, modular design that makes it easy to extend:
 
 ## 📂 Project Structure
 
+The project follows a well-organized structure:
+
 ```
 youtube-frame-extractor/
-├── youtube_frame_extractor/  # Main package
-│   ├── __main__.py           # Entry point - launches the CLI
-│   ├── cli.py                # Command-line interface with Typer
-│   ├── config.py             # Pydantic-based config system
-│   ├── exceptions.py         # Comprehensive exception hierarchy
-│   ├── logger.py             # Rich-integrated logging system
-│   ├── extractors/           # Frame extraction modules
-│   │   ├── base.py           # Abstract base extractor class
-│   │   ├── browser.py        # Selenium-based YouTube extraction
-│   │   └── download.py       # yt-dlp + ffmpeg based extraction
-│   ├── analysis/             # Frame analysis modules
-│   │   ├── vlm.py            # Vision Language Model interface
-│   │   ├── clip.py           # CLIP model implementation
-│   │   ├── object_detection.py # Object detection with Faster R-CNN
-│   │   └── ocr.py            # Optical character recognition
-│   ├── storage/              # Storage handling
-│   │   ├── cloud.py          # AWS S3 & Google Cloud Storage
-│   │   └── local.py          # Local filesystem storage
-│   └── utils/                # Utility functions
-│       ├── browser.py        # Browser automation helpers
-│       ├── concurrency.py    # Threading and parallelism tools
-│       ├── image.py          # Image processing utilities
-│       └── video.py          # Video handling functions
-├── examples/                 # Example scripts and notebooks
-│   ├── basic_extraction.py   # Simple extraction demos
-│   ├── batch_processing.py   # Multi-video processing example
-│   ├── vlm_analysis.py       # VLM-based semantic search demo
-│   └── notebooks/            # Jupyter notebooks
-│       ├── quickstart.ipynb  # Getting started tutorial
+├── src/youtube_frame_extractor/    # Main package
+│   ├── __main__.py                 # Entry point - launches the CLI
+│   ├── cli.py                      # Command-line interface with Typer
+│   ├── config.py                   # Pydantic-based config system
+│   ├── exceptions.py               # Comprehensive exception hierarchy
+│   ├── logger.py                   # Rich-integrated logging system
+│   ├── extractors/                 # Frame extraction modules
+│   │   ├── base.py                 # Abstract base extractor class
+│   │   ├── browser.py              # Selenium-based YouTube extraction
+│   │   └── download.py             # yt-dlp + ffmpeg based extraction
+│   ├── analysis/                   # Frame analysis modules
+│   │   ├── vlm.py                  # Vision Language Model interface
+│   │   ├── clip.py                 # CLIP model implementation
+│   │   ├── object_detection.py     # Object detection with Faster R-CNN
+│   │   └── ocr.py                  # Optical character recognition
+│   ├── storage/                    # Storage handling
+│   │   ├── cloud.py                # AWS S3 & Google Cloud Storage
+│   │   └── local.py                # Local filesystem storage
+│   └── utils/                      # Utility functions
+│       ├── browser.py              # Browser automation helpers
+│       ├── concurrency.py          # Threading and parallelism tools
+│       ├── image.py                # Image processing utilities
+│       └── video.py                # Video handling functions
+├── examples/                       # Example scripts and notebooks
+│   ├── basic_extraction.py         # Simple extraction demos
+│   ├── batch_processing.py         # Multi-video processing example
+│   ├── vlm_analysis.py             # VLM-based semantic search demo
+│   └── notebooks/                  # Jupyter notebooks
+│       ├── quickstart.ipynb        # Getting started tutorial
 │       └── advanced_analysis.ipynb # Advanced features walkthrough
-├── tests/                    # Test suite (in development)
-└── docs/                     # Documentation (in development)
+├── tests/                          # Comprehensive test suite
+│   ├── integration/                # End-to-end testing
+│   ├── test_analysis/              # Tests for analysis modules
+│   ├── test_extractors/            # Tests for extraction modules
+│   └── test_utils/                 # Tests for utility functions
+├── docs/                           # Documentation
+│   ├── api-reference/             # API documentation (in progress)
+│   ├── examples/                  # Usage examples
+│   └── installation.md            # Installation guide
+├── Dockerfile                      # Docker configuration
+├── docker-compose.yml              # Docker Compose setup
+├── Makefile                        # Development automation
+└── requirements.txt                # Package dependencies
 ```
 
 ## 🔄 Development Status
@@ -481,12 +549,13 @@ The project is now **feature-complete** with all major components implemented:
 ✅ **CLI**: Comprehensive command-line interface with all commands  
 ✅ **Configuration**: Flexible config system with environment variables  
 ✅ **Examples**: Demonstration scripts and notebooks available  
-✅ **Utils**: Browser helpers, concurrency tools, image/video processing
+✅ **Utils**: Browser helpers, concurrency tools, image/video processing  
+✅ **Tests**: Unit and integration tests for all major components
 
 🔄 **In Progress**:
-- Test suite (unit and integration tests)
-- API reference documentation
-- Docker configuration validation
+- More comprehensive API reference documentation
+- Additional test coverage for edge cases
+- Docker configuration refinements
 
 ## 🤝 Contributing
 
@@ -500,7 +569,7 @@ Join our awesome community of developers! Here's how to contribute:
 6. Open a Pull Request and describe your cool changes
 
 We especially welcome:
-- 🧪 Test implementations
+- 🧪 Additional test implementations
 - 📚 Documentation improvements
 - 🔧 Docker configuration refinements
 - ⚡ Performance optimizations
@@ -521,14 +590,20 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 This project leverages these amazing technologies:
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp) - Powerful video downloading
 - [Selenium](https://www.selenium.dev/) - Browser automation magic
-- [ffmpeg](https://ffmpeg.org/) - Video processing wizardry
+- [ffmpeg-python](https://github.com/kkroening/ffmpeg-python) - Video processing wizardry
 - [OpenCV](https://opencv.org/) - Computer vision library
-- [CLIP](https://github.com/openai/CLIP) - OpenAI's amazing vision-language model
 - [PyTorch](https://pytorch.org/) - Machine learning framework
+- [Transformers](https://huggingface.co/transformers/) - NLP and vision models
+- [CLIP](https://github.com/openai/CLIP) - OpenAI's amazing vision-language model
 - [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) - Text extraction from images
-- [torchvision](https://pytorch.org/vision/) - Computer vision toolkit
-- [AWS S3](https://aws.amazon.com/s3/) - Cloud storage
-- [Google Cloud Storage](https://cloud.google.com/storage) - Cloud storage
 - [Typer](https://typer.tiangolo.com/) - CLI creation simplified
 - [Rich](https://github.com/Textualize/rich) - Beautiful terminal output
 - [Pydantic](https://pydantic-docs.helpmanual.io/) - Data validation
+- [FastAPI](https://fastapi.tiangolo.com/) - API framework
+- [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) - AWS SDK for Python
+- [google-cloud-storage](https://googleapis.dev/python/storage/latest/index.html) - Google Cloud Storage SDK
+- [pytest](https://docs.pytest.org/) - Testing framework
+- [MkDocs](https://www.mkdocs.org/) - Documentation generator
+- [Jupyter](https://jupyter.org/) - Interactive notebook environment
+- [matplotlib](https://matplotlib.org/) - Data visualization
+- [seaborn](https://seaborn.pydata.org/) - Statistical data visualization
