@@ -6,8 +6,8 @@ This example demonstrates how to use Vision Language Models (VLMs)
 to find frames in YouTube videos that match specific natural language descriptions.
 
 Usage:
-    python vlm_analysis.py --video-id dQw4w9WgXcQ --query "person dancing" --threshold 0.3
-    python vlm_analysis.py --video-id dQw4w9WgXcQ --query "close up of face" --method download
+    python examples/vlm_analysis.py --video-id dQw4w9WgXcQ --query "person dancing" --threshold 0.3
+    python examples/vlm_analysis.py --video-id dQw4w9WgXcQ --query "close up of face" --method download
 """
 
 import argparse
@@ -38,6 +38,7 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()],
 )
 logger = logging.getLogger("vlm_analysis")
+
 
 def extract_and_analyze_frames(
     video_id: str,
@@ -90,7 +91,7 @@ def extract_and_analyze_frames(
             logger.info("Using browser-based extraction")
             extractor = BrowserExtractor(output_dir=video_output_dir, headless=True)
             
-            # For browser method, we can use the scan_video_for_frames method
+            # For browser method, use scan_video_for_frames to incorporate VLM analysis directly
             frames = extractor.scan_video_for_frames(
                 video_id=video_id,
                 search_query=query,
@@ -103,7 +104,7 @@ def extract_and_analyze_frames(
             logger.info("Using download-based extraction")
             extractor = DownloadExtractor(output_dir=video_output_dir)
             
-            # For download method, we extract frames first, then analyze them
+            # For download method, extract frames first, then analyze them
             raw_frames = extractor.extract_frames(
                 video_id=video_id,
                 frame_rate=frame_rate,
@@ -121,7 +122,7 @@ def extract_and_analyze_frames(
                 # Calculate similarity between image and query
                 similarity = vlm_analyzer.calculate_similarity(image, query)
                 
-                # Add similarity score to frame data
+                # Add similarity score and query to frame data
                 frame_data["similarity"] = float(similarity)
                 frame_data["query"] = query
                 
@@ -131,7 +132,7 @@ def extract_and_analyze_frames(
             
             logger.info(f"Found {len(frames)} frames matching the query above threshold {threshold}")
         
-        # Sort by similarity (highest first)
+        # Sort frames by similarity (highest first)
         frames.sort(key=lambda x: x.get("similarity", 0), reverse=True)
         
         return frames
@@ -139,6 +140,7 @@ def extract_and_analyze_frames(
     except Exception as e:
         logger.error(f"Error extracting and analyzing frames: {str(e)}")
         return []
+
 
 def save_results(frames: List[Dict[str, Any]], video_id: str, query: str, output_dir: str) -> str:
     """
@@ -157,10 +159,8 @@ def save_results(frames: List[Dict[str, Any]], video_id: str, query: str, output
         logger.warning("No frames to save")
         return ""
     
-    # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
     
-    # Create a results dictionary
     results = {
         "video_id": video_id,
         "query": query,
@@ -169,22 +169,19 @@ def save_results(frames: List[Dict[str, Any]], video_id: str, query: str, output
         "frames": []
     }
     
-    # Add frame data
     for frame in frames:
-        # Create a serializable frame entry
         frame_entry = {
             "path": frame.get("path", ""),
             "time": frame.get("time", 0),
             "similarity": frame.get("similarity", 0),
             "metadata": {
-                k: v for k, v in frame.items() 
+                k: v for k, v in frame.items()
                 if k not in ["frame", "path", "time", "similarity"]
                 and not callable(v)
             }
         }
         results["frames"].append(frame_entry)
     
-    # Save to JSON file
     filename = f"{video_id}_{query.replace(' ', '_')}_{int(time.time())}.json"
     filepath = os.path.join(output_dir, filename)
     
@@ -197,7 +194,8 @@ def save_results(frames: List[Dict[str, Any]], video_id: str, query: str, output
         logger.error(f"Error saving results: {str(e)}")
         return ""
 
-def display_top_results(frames: List[Dict[str, Any]], top_n: int = 5):
+
+def display_top_results(frames: List[Dict[str, Any]], top_n: int = 5) -> None:
     """
     Display information about the top matched frames.
     
@@ -215,13 +213,13 @@ def display_top_results(frames: List[Dict[str, Any]], top_n: int = 5):
         similarity = frame.get("similarity", 0) * 100  # Convert to percentage
         time_str = f"{frame.get('time', 0):.2f}s" if "time" in frame else "N/A"
         path = frame.get("path", "N/A")
-        
         logger.info(f"{i+1}. Similarity: {similarity:.1f}% | Time: {time_str} | Path: {path}")
     
     if len(frames) > top_n:
         logger.info(f"... and {len(frames) - top_n} more matching frames")
 
-def main():
+
+def main() -> None:
     """
     Main entry point for the VLM analysis example.
     """
@@ -229,64 +227,18 @@ def main():
         description="Find frames in YouTube videos that match specific descriptions using VLM"
     )
     parser.add_argument("--video-id", type=str, required=True, help="YouTube video ID")
-    parser.add_argument(
-        "--query", 
-        type=str, 
-        required=True,
-        help="Natural language description to search for"
-    )
-    parser.add_argument(
-        "--method", 
-        choices=["browser", "download"], 
-        default="browser",
-        help="Frame extraction method"
-    )
-    parser.add_argument(
-        "--output-dir", 
-        type=str, 
-        default="./vlm_output",
-        help="Directory to save frames and results"
-    )
-    parser.add_argument(
-        "--model", 
-        type=str, 
-        default="openai/clip-vit-base-patch16",
-        help="VLM model name"
-    )
-    parser.add_argument(
-        "--threshold", 
-        type=float, 
-        default=0.3,
-        help="Similarity threshold (0.0 to 1.0)"
-    )
-    parser.add_argument(
-        "--interval", 
-        type=float, 
-        default=1.0,
-        help="Interval between frames for browser method (seconds)"
-    )
-    parser.add_argument(
-        "--frame-rate", 
-        type=float, 
-        default=0.5,
-        help="Frames per second for download method"
-    )
-    parser.add_argument(
-        "--frames", 
-        type=int, 
-        default=50,
-        help="Maximum number of frames to extract"
-    )
-    parser.add_argument(
-        "--top-n", 
-        type=int, 
-        default=5,
-        help="Number of top results to display"
-    )
+    parser.add_argument("--query", type=str, required=True, help="Natural language description to search for")
+    parser.add_argument("--method", choices=["browser", "download"], default="browser", help="Frame extraction method")
+    parser.add_argument("--output-dir", type=str, default="./vlm_output", help="Directory to save frames and results")
+    parser.add_argument("--model", type=str, default="openai/clip-vit-base-patch16", help="VLM model name")
+    parser.add_argument("--threshold", type=float, default=0.3, help="Similarity threshold (0.0 to 1.0)")
+    parser.add_argument("--interval", type=float, default=1.0, help="Interval between frames for browser method (seconds)")
+    parser.add_argument("--frame-rate", type=float, default=0.5, help="Frames per second for download method")
+    parser.add_argument("--frames", type=int, default=50, help="Maximum number of frames to extract")
+    parser.add_argument("--top-n", type=int, default=5, help="Number of top results to display")
     
     args = parser.parse_args()
     
-    # Extract and analyze frames
     start_time = time.time()
     
     frames = extract_and_analyze_frames(
@@ -304,10 +256,8 @@ def main():
     elapsed_time = time.time() - start_time
     logger.info(f"Analysis completed in {elapsed_time:.2f} seconds")
     
-    # Display top results
     display_top_results(frames, args.top_n)
     
-    # Save results to file
     if frames:
         results_file = save_results(
             frames=frames,

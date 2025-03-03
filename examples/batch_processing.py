@@ -6,8 +6,8 @@ This example demonstrates how to process multiple YouTube videos in batch,
 with parallel processing, progress tracking, and error handling.
 
 Usage:
-    python batch_processing.py --video-ids dQw4w9WgXcQ 9bZkp7q19f0 --method browser
-    python batch_processing.py --video-file video_ids.txt --method download
+    python examples/basic_processing.py --video-ids dQw4w9WgXcQ 9bZkp7q19f0 --method browser
+    python examples/basic_processing.py --video-file video_ids.txt --method download
 """
 
 import argparse
@@ -40,6 +40,7 @@ logging.basicConfig(
     ],
 )
 logger = logging.getLogger("batch_processing")
+
 
 def process_video(
     video_id: str,
@@ -93,6 +94,7 @@ def process_video(
         error_message = f"Error processing video {video_id}: {str(e)}"
         logger.error(error_message)
         return video_id, False, [], error_message
+
 
 def batch_process_videos(
     video_ids: List[str],
@@ -174,12 +176,12 @@ def batch_process_videos(
                     "error": str(e),
                     "frames": []
                 }
-                
                 completed += 1
                 logger.info(f"Progress: {completed}/{len(video_ids)} videos processed")
     
     logger.info(f"Batch processing complete. Processed {len(video_ids)} videos")
     return results
+
 
 def load_video_ids_from_file(file_path: str) -> List[str]:
     """
@@ -200,13 +202,12 @@ def load_video_ids_from_file(file_path: str) -> List[str]:
             # Read lines, strip whitespace, and filter out empty lines
             video_ids = [line.strip() for line in f.readlines()]
             video_ids = [vid for vid in video_ids if vid and not vid.startswith('#')]
-            
         logger.info(f"Loaded {len(video_ids)} video IDs from {file_path}")
         return video_ids
-        
     except Exception as e:
         logger.error(f"Error loading video IDs from {file_path}: {str(e)}")
         return []
+
 
 def generate_summary_report(results: Dict[str, Dict[str, Any]], output_file: str):
     """
@@ -236,7 +237,6 @@ def generate_summary_report(results: Dict[str, Dict[str, Any]], output_file: str
             for video_id, result in results.items():
                 status = "✅ Success" if result["success"] else "❌ Failed"
                 f.write(f"### Video: {video_id} - {status}\n\n")
-                
                 if result["success"]:
                     f.write(f"Frames extracted: {result['frame_count']}\n")
                     frames_str = ", ".join(f.get('path', 'unknown') for f in result["frames"][:3])
@@ -245,13 +245,11 @@ def generate_summary_report(results: Dict[str, Dict[str, Any]], output_file: str
                     f.write(f"Sample frames: {frames_str}\n")
                 else:
                     f.write(f"Error: {result['error']}\n")
-                    
                 f.write("\n")
-            
         logger.info(f"Summary report generated: {output_file}")
-        
     except Exception as e:
         logger.error(f"Error generating summary report: {str(e)}")
+
 
 def main():
     """
