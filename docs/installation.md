@@ -1,140 +1,166 @@
 # Installation Guide
 
-The **YouTube Frame Extractor** is a robust toolkit for extracting and analyzing frames from YouTube videos using both browser-based and download-based methods. This guide will walk you through the steps to set up the project on your local machine or within a Docker container.
-
----
+This guide covers all the installation options for YouTube Frame Extractor, from basic setup to advanced configurations.
 
 ## Prerequisites
 
-Before you begin, make sure you have the following:
+Before installing YouTube Frame Extractor, ensure you have the following prerequisites:
 
-- **Python 3.8+**: The project requires Python version 3.8 or higher.
-- **pip**: The package installer for Python.
-- **Git**: To clone the repository.
-- **Virtual Environment (recommended)**: For isolated dependency management.
-- **Web Browser**: Chrome, Firefox, or Edge (for browser-based extraction).
-- **ffmpeg**: A recent version installed on your system (for video processing).
-- **Tesseract OCR**: Required for OCR functionality.
-- **CUDA-compatible GPU (optional)**: For accelerated AI-powered analysis using PyTorch.
+### Required
 
----
+- Python 3.8 or newer
+- pip (Python package installer)
+- Internet connection for downloading dependencies
 
-## Step-by-Step Installation
+### Browser-based Extraction
 
-### 1. Clone the Repository
+If you plan to use browser-based extraction:
 
-Clone the repository to your local machine using Git:
+- Chrome, Firefox, or Edge browser installed
+- Corresponding WebDriver (handled automatically when using `webdriver_manager`)
+
+### Download-based Extraction
+
+If you plan to use download-based extraction:
+
+- ffmpeg installed and available in your system PATH
+  - [FFmpeg Download Page](https://ffmpeg.org/download.html)
+
+### Optional
+
+- CUDA-compatible GPU for accelerated AI processing
+- Tesseract OCR for text extraction capabilities
+  - [Tesseract Installation Guide](https://github.com/tesseract-ocr/tesseract)
+
+## Standard Installation
+
+### From PyPI (Recommended)
 
 ```bash
+pip install youtube-frame-extractor
+```
+
+### From Source
+
+```bash
+# Clone the repository
 git clone https://github.com/Harshil7875/YouTube-Frame-Extractor.git
 cd YouTube-Frame-Extractor
-```
 
-### 2. Create and Activate a Virtual Environment
-
-It’s best practice to use a virtual environment. Create and activate one as follows:
-
-```bash
-# Create virtual environment
+# Create and activate virtual environment (recommended)
 python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Activate the virtual environment on macOS/Linux:
-source venv/bin/activate
-
-# On Windows:
-venv\Scripts\activate
+# Install from local source
+pip install -e .
 ```
 
-### 3. Install Python Dependencies
+## Feature-specific Installation
 
-Install all required dependencies from the `requirements.txt` file:
+You can install specific feature sets based on your needs:
+
+### Minimal Installation
 
 ```bash
-pip install -r requirements.txt
+pip install youtube-frame-extractor[minimal]
 ```
 
-This will install key packages such as yt-dlp, Selenium, OpenCV, PyTorch, CLIP, Tesseract OCR, and others.
+This installs only the core dependencies without AI analysis capabilities.
 
-### 4. (Optional) Install Additional System Dependencies
+### Full Installation (All Features)
 
-Depending on your operating system, you might need to install some system-level packages.
-
-#### On Ubuntu/Debian:
 ```bash
-sudo apt-get update
-sudo apt-get install ffmpeg tesseract-ocr chromium chromium-driver libsm6 libxext6 libxrender1
+pip install youtube-frame-extractor[full]
 ```
 
-#### On macOS:
-- Install [Homebrew](https://brew.sh/) if you haven’t already.
-- Then install:
-  ```bash
-  brew install ffmpeg tesseract
-  ```
-- For Chromium, install Google Chrome and ensure the corresponding driver is available.
+This installs all dependencies, including CLIP, PyTorch, and other analysis tools.
 
-### 5. (Optional) Build the Docker Image
-
-For a consistent, containerized environment, build the Docker image:
+### Custom Feature Sets
 
 ```bash
+# For browser-based extraction only
+pip install youtube-frame-extractor[browser]
+
+# For download-based extraction only
+pip install youtube-frame-extractor[download]
+
+# For AI analysis capabilities
+pip install youtube-frame-extractor[analysis]
+
+# For cloud storage support
+pip install youtube-frame-extractor[cloud]
+```
+
+## Docker Installation
+
+We provide a Docker image for containerized operation, ensuring consistent environments:
+
+```bash
+# Build the Docker image
 docker build -t youtube-frame-extractor .
+
+# Run with Docker, mounting an output directory
+docker run -v $(pwd)/output:/app/output youtube-frame-extractor [COMMANDS]
 ```
 
-### 6. Configure Environment Variables
-
-You can customize the extractor using environment variables. All variables should be prefixed with `YFE_`. For example:
+### Using Docker Compose
 
 ```bash
-export YFE_BROWSER_HEADLESS=true
-export YFE_DOWNLOAD_TEMP_DIR=/path/to/temp
+# Start using docker-compose
+docker-compose up
 ```
 
-Alternatively, create a `.env` file in the project root with your custom settings.
+## Post-Installation Verification
 
-### 7. Set the PYTHONPATH (If Needed)
-
-If you encounter import errors when running example scripts, ensure your `PYTHONPATH` includes the `src` directory. From the project root, run:
+After installation, verify your setup with:
 
 ```bash
-export PYTHONPATH=./src
+# Verify the package is installed
+python -c "import youtube_frame_extractor; print(youtube_frame_extractor.__version__)"
+
+# Run a simple extraction test
+python -m youtube_frame_extractor.cli verify
 ```
-
-### 8. Test the Installation
-
-Run one of the example scripts to verify that everything is set up correctly. For instance, to test browser-based extraction:
-
-```bash
-python3 examples/basic_extraction.py --video-id dQw4w9WgXcQ --method browser --interval 2 --frames 10
-```
-
-This command should initialize the browser, navigate to the YouTube video, and extract the specified number of frames.
-
----
 
 ## Troubleshooting
 
-- **Module Not Found Errors:**  
-  Ensure you run commands from the project root and that the `PYTHONPATH` includes the `src` directory:
-  ```bash
-  export PYTHONPATH=./src
-  ```
+### Common Issues
 
-- **Browser Issues:**  
-  Verify that a compatible web browser is installed and that its driver (e.g., `chromedriver` for Chrome) is available in your system PATH.
+#### Browser Driver Issues
 
-- **System Dependency Errors:**  
-  Confirm that `ffmpeg` and `tesseract` are installed and accessible from the command line.
+If you encounter WebDriver issues:
 
----
+```bash
+# Install webdriver-manager to handle drivers automatically
+pip install webdriver-manager
+```
 
-## Further Reading
+#### FFmpeg Not Found
 
-- [Project Documentation (index.md)](index.md)
-- [README](../README.md)
+If ffmpeg commands fail:
 
----
+1. Ensure ffmpeg is installed and in your PATH
+2. On Windows, you may need to restart your terminal after installation
+3. Verify installation with `ffmpeg -version`
 
-## License
+#### CUDA/GPU Issues
 
-This project is licensed under the MIT License. See the [LICENSE](../LICENSE) file for details.
+If you're having GPU acceleration problems:
+
+1. Verify CUDA installation: `python -c "import torch; print(torch.cuda.is_available())"`
+2. Update NVIDIA drivers if needed
+
+### Getting Help
+
+If you continue to experience issues:
+
+1. Check the [GitHub Issues](https://github.com/Harshil7875/YouTube-Frame-Extractor/issues) for similar problems
+2. Open a new issue with detailed information about your environment and the problem
+
+## Next Steps
+
+Now that you have installed YouTube Frame Extractor, you can:
+
+- Check out the [Quick Start Guide](examples/quickstart.md)
+- Explore [Example Scripts](examples/index.md)
+- Learn about [Configuration Options](api-reference/config.md)

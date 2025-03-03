@@ -24,77 +24,94 @@
 [![Jupyter](https://img.shields.io/badge/Jupyter-1.0.0%2B-orange.svg)](https://jupyter.org/)
 [![matplotlib](https://img.shields.io/badge/matplotlib-3.7.1%2B-blue.svg)](https://matplotlib.org/)
 
-## Overview
+## What is YouTube Frame Extractor?
 
-The **YouTube Frame Extractor** is a powerful and flexible toolkit for extracting and analyzing frames from YouTube videos. It supports two main methods:
+YouTube Frame Extractor provides an enterprise-grade solution for extracting specific frames from YouTube videos. Whether you need to capture exact moments, analyze content using AI, or process videos in bulk, this toolkit offers flexible and powerful options for video frame extraction and analysis.
 
-- **Browser-based Extraction:** Captures frames directly from the YouTube player using Selenium.
-- **Download-based Extraction:** Downloads videos using yt-dlp and extracts frames with high precision using ffmpeg or OpenCV.
+## Key Features
 
-This tool also supports advanced analysis features like AI-powered semantic search (using CLIP), OCR, object detection, and scene change detection. It’s ideal for developers and researchers looking to analyze video content programmatically.
+- **Multiple Extraction Methods**
+  - Browser-based extraction using Selenium
+  - Download-based extraction using yt-dlp and ffmpeg
 
-## Features
+- **AI-Powered Analysis**
+  - Content detection with CLIP vision-language models
+  - Object detection for identifying people and objects
+  - OCR for extracting text from frames
+  - Scene change detection
 
-- **AI-Powered Semantic Search:**  
-  Use vision-language models to identify frames that match natural language queries.
-- **Browser-based Extraction:**  
-  Capture frames without downloading the entire video.
-- **Download-based Extraction:**  
-  Extract frames accurately from downloaded videos.
-- **Batch Processing:**  
-  Process multiple videos concurrently with built-in parallelism.
-- **Flexible Configuration:**  
-  Customize settings via environment variables, configuration files (YAML/JSON), or command-line arguments.
-- **Cloud Storage Integration:**  
-  Save extracted frames to AWS S3 or Google Cloud Storage.
-- **Robust Logging and Error Handling:**  
-  Enterprise-grade error handling and detailed logging.
+- **Flexible System Design**
+  - Local or cloud storage (AWS S3/Google Cloud)
+  - Parallel processing for multiple videos
+  - Comprehensive configuration options
+  - Robust error handling
+
+## Quick Start
+
+```python
+# Example: Extract frames at 1-second intervals
+from youtube_frame_extractor.extractors import browser
+
+extractor = browser.BrowserExtractor()
+frames = extractor.extract_frames(
+    video_id="dQw4w9WgXcQ", 
+    interval=1.0,
+    max_frames=10
+)
+
+# Example: Find frames containing specific content
+from youtube_frame_extractor.analysis import clip
+from youtube_frame_extractor.extractors import download
+
+analyzer = clip.CLIPAnalyzer()
+extractor = download.DownloadExtractor()
+
+matching_frames = extractor.scan_video_for_frames(
+    video_id="dQw4w9WgXcQ",
+    search_query="person dancing",
+    vlm_analyzer=analyzer,
+    threshold=0.3
+)
+```
 
 ## Installation
 
-### Prerequisites
-
-- **Python:** 3.8 or higher.
-- **Web Browser:** Chrome, Firefox, or Edge (for browser-based extraction).
-- **ffmpeg:** Ensure you have a recent version installed for download-based extraction.
-- **Tesseract:** Required for OCR functionality.
-- **CUDA-compatible GPU:** Optional for AI-powered analysis.
-
-### Setup Steps
-
-1. **Clone the Repository:**
-
-    ```bash
-    git clone https://github.com/Harshil7875/YouTube-Frame-Extractor.git
-    cd YouTube-Frame-Extractor
-    ```
-
-2. **Create and Activate a Virtual Environment:**
-
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
-    ```
-
-3. **Install Dependencies:**
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4. **(Optional) Build the Docker Image:**
-
-    ```bash
-    docker build -t youtube-frame-extractor .
-    ```
-
-## Usage
-
-### Command Line Interface (CLI)
-
-The CLI is built using Typer and supports several commands:
-
-#### Browser-based Extraction
-
 ```bash
-python -m youtube_frame_extractor browser --video-id dQw4w9WgXcQ --query "close up of person singing" --interval 2 --threshold 0.3
+pip install youtube-frame-extractor
+```
+
+For detailed installation instructions, see [Installation Guide](installation.md).
+
+## Documentation Sections
+
+- [Installation](installation.md) - Detailed setup instructions
+- [Extractors](api-reference/extractors.md) - Frame extraction methods
+- [Analysis](api-reference/analysis.md) - Content analysis tools
+- [Storage](api-reference/storage.md) - Local and cloud storage options
+- [Configuration](api-reference/config.md) - Customizing behavior
+- [Examples](examples/index.md) - Code examples and use cases
+- [Contributing](contributing.md) - Guidelines for contributors
+
+## System Requirements
+
+- Python 3.8 or newer
+- Browser (Chrome, Firefox, or Edge) for browser-based extraction
+- ffmpeg (recent version) for video processing
+- Optional: CUDA-compatible GPU for faster AI processing
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
+```
+
+This index.md file:
+
+1. Starts with a clear introduction to the project
+2. Highlights key features in a structured way
+3. Provides quick-start code examples for immediate understanding
+4. Includes installation instructions
+5. Links to the main documentation sections
+6. Mentions system requirements
+7. References the license information
+
+It serves as both an overview and a navigation hub for users to easily find more detailed information in the specific documentation sections.

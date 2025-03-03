@@ -15,9 +15,9 @@ setuptools.setup(
     description="Extract and analyze frames from YouTube videos using browser automation, AI-powered analysis, and more.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Harshil7875/youtube-scrape-videoframe-analysis",
+    url="https://github.com/Harshil7875/YouTube-Frame-Extractor",
     project_urls={
-        "Bug Tracker": "https://github.com/Harshil7875/youtube-scrape-videoframe-analysis/issues",
+        "Bug Tracker": "https://github.com/Harshil7875/YouTube-Frame-Extractor/issues",
     },
     classifiers=[
         "Development Status :: 5 - Production/Stable",
