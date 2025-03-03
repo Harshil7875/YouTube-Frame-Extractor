@@ -26,8 +26,8 @@ Before you begin, make sure you have the following:
 Clone the repository to your local machine using Git:
 
 ```bash
-git clone https://github.com/Harshil7875/youtube-scrape-videoframe-analysis.git
-cd youtube-scrape-videoframe-analysis
+git clone https://github.com/Harshil7875/YouTube-Frame-Extractor.git
+cd YouTube-Frame-Extractor
 ```
 
 ### 2. Create and Activate a Virtual Environment
