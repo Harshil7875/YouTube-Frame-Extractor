@@ -15,7 +15,7 @@
 [![Tesseract](https://img.shields.io/badge/pytesseract-0.3.10%2B-darkblue.svg)](https://github.com/madmaze/pytesseract)
 [![Typer](https://img.shields.io/badge/Typer-0.7.0%2B-green.svg)](https://typer.tiangolo.com/)
 [![Rich](https://img.shields.io/badge/Rich-13.3.0%2B-purple.svg)](https://github.com/Textualize/rich)
-[![Pydantic](https://img.shields.io/badge/Pydantic-1.10.0%2B-blue.svg)](https://pydantic-docs.helpmanual.io/)
+[![Pydantic](https://img.shields.io/badge/Pydantic-2.0.0%2B-blue.svg)](https://pydantic-docs.helpmanual.io/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.95.0%2B-009688.svg)](https://fastapi.tiangolo.com/)
 [![AWS S3](https://img.shields.io/badge/boto3-1.26.0%2B-yellow.svg)](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
 [![Google Cloud](https://img.shields.io/badge/GCS-2.7.0%2B-blue.svg)](https://cloud.google.com/storage)

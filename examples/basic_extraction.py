@@ -14,18 +14,21 @@ import argparse
 import logging
 import os
 import sys
+print("sys.path:", sys.path)
+
 from pathlib import Path
 from typing import List, Dict, Any
 
 # Add parent directory to sys.path to import the package modules
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 try:
-    from src.youtube_frame_extractor.extractors.browser import BrowserExtractor
-    from src.youtube_frame_extractor.extractors.download import DownloadExtractor
-except ImportError:
+    from youtube_frame_extractor.extractors.browser import BrowserExtractor
+    from youtube_frame_extractor.extractors.download import DownloadExtractor
+except ImportError as e:
     print("ERROR: Could not import YouTube Frame Extractor package modules.")
-    print("Make sure you're running this script from the project root directory.")
+    print("Exception:", e)
+    print("Make sure you're running this script from the project root directory and that PYTHONPATH includes the 'src' directory.")
     sys.exit(1)
 
 # Set up logging

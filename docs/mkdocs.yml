@@ -1,0 +1,66 @@
+site_name: YouTube Frame Extractor
+site_url: https://your-site-url-here
+site_description: "A toolkit for extracting and analyzing frames from YouTube videos using advanced AI models."
+site_author: Harshil Bhandari
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Contributing: contributing.md
+  - API Reference:
+      - Overview: api-reference/index.md
+  - Examples: examples/index.md
+
+theme:
+  name: material
+  language: en
+  palette:
+    primary: indigo
+    accent: indigo
+  font:
+    text: Roboto
+    code: Roboto Mono
+  # Uncomment and adjust the following lines if you have a logo/favicon:
+  # logo: images/logo.png
+  # favicon: images/favicon.ico
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+            - import sys; sys.path.insert(0, 'src')
+          filter:
+            - "!^tests"
+  - git-revision-date-localized
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra_css:
+  - css/custom.css
+
+repo_url: https://github.com/Harshil7875/YouTube-Frame-Extractor
+repo_name: YouTube Frame Extractor
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Harshil7875/YouTube-Frame-Extractor
