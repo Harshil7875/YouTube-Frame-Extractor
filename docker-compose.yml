@@ -1,0 +1,21 @@
+services:
+  extractor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: youtube-frame-extractor:latest
+    container_name: youtube_frame_extractor
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+      - YFE_BROWSER_HEADLESS=true
+      - CHROME_BIN=/usr/bin/chromium
+      # Additional environment variables can be added here if needed
+    volumes:
+      # Mount local directory for persistent output, logs, etc.
+      - ./data:/app/data
+    ports:
+      # Uncomment the next line if you're running an API service (e.g., FastAPI)
+      #- "8000:8000"
+    command: ["python", "-m", "youtube_frame_extractor"]
+    restart: unless-stopped
