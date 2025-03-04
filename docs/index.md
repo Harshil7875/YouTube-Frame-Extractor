@@ -102,16 +102,3 @@ For detailed installation instructions, see [Installation Guide](installation.md
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
-```
-
-This index.md file:
-
-1. Starts with a clear introduction to the project
-2. Highlights key features in a structured way
-3. Provides quick-start code examples for immediate understanding
-4. Includes installation instructions
-5. Links to the main documentation sections
-6. Mentions system requirements
-7. References the license information
-
-It serves as both an overview and a navigation hub for users to easily find more detailed information in the specific documentation sections.
