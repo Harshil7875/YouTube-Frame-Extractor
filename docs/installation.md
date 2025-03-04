@@ -1,166 +1,137 @@
 # Installation Guide
 
-This guide covers all the installation options for YouTube Frame Extractor, from basic setup to advanced configurations.
+Follow these instructions to install YouTube Frame Extractor and its dependencies, preparing your system for efficient frame extraction and analysis from YouTube videos.
 
-## Prerequisites
+---
 
-Before installing YouTube Frame Extractor, ensure you have the following prerequisites:
+## System Requirements
 
-### Required
+Before installing, ensure your system meets the following requirements:
 
-- Python 3.8 or newer
-- pip (Python package installer)
-- Internet connection for downloading dependencies
+- **Python**: Version 3.8 or newer
+- **ffmpeg**: Required for video processing and frame extraction
+- **Browser**: Required for browser-based extraction (Chrome, Firefox, or Edge)
+- **CUDA-compatible GPU** (optional): Recommended for faster AI processing
 
-### Browser-based Extraction
+---
 
-If you plan to use browser-based extraction:
+## Installation
 
-- Chrome, Firefox, or Edge browser installed
-- Corresponding WebDriver (handled automatically when using `webdriver_manager`)
+### Step 1: Install Python
 
-### Download-based Extraction
+Download and install Python (version 3.8 or newer) from the [official Python website](https://www.python.org/downloads/).
 
-If you plan to use download-based extraction:
+Verify your installation:
 
-- ffmpeg installed and available in your system PATH
-  - [FFmpeg Download Page](https://ffmpeg.org/download.html)
+```bash
+python --version
+```
 
-### Optional
+---
 
-- CUDA-compatible GPU for accelerated AI processing
-- Tesseract OCR for text extraction capabilities
-  - [Tesseract Installation Guide](https://github.com/tesseract-ocr/tesseract)
+### Step 2: Install ffmpeg
 
-## Standard Installation
+**Windows:** Download ffmpeg binaries from [FFmpeg's official site](https://ffmpeg.org/download.html#build-windows) and add it to your system PATH.
 
-### From PyPI (Recommended)
+**macOS:**
+
+Using Homebrew:
+
+```bash
+brew install ffmpeg
+```
+
+**Linux:**
+
+Using apt (Ubuntu/Debian):
+
+```bash
+sudo apt update
+sudo apt install ffmpeg
+```
+
+Verify your installation:
+
+```bash
+ffmpeg -version
+```
+
+---
+
+### Step 3: Install YouTube Frame Extractor
+
+You can easily install YouTube Frame Extractor using pip:
 
 ```bash
 pip install youtube-frame-extractor
 ```
 
-### From Source
+If you plan to contribute or access the latest features, install from source:
 
 ```bash
-# Clone the repository
-git clone https://github.com/Harshil7875/YouTube-Frame-Extractor.git
-cd YouTube-Frame-Extractor
-
-# Create and activate virtual environment (recommended)
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install from local source
+git clone https://github.com/your-repo/youtube-frame-extractor.git
+cd youtube-frame-extractor
 pip install -e .
 ```
 
-## Feature-specific Installation
+---
 
-You can install specific feature sets based on your needs:
+### Step 4: Install Browser and Drivers (Optional)
 
-### Minimal Installation
+If using browser-based extraction, install one of the following browsers and its corresponding WebDriver:
 
-```bash
-pip install youtube-frame-extractor[minimal]
-```
+- **Chrome:** [Download Chrome](https://www.google.com/chrome/) | [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
+- **Firefox:** [Download Firefox](https://www.mozilla.org/firefox/new/) | [GeckoDriver](https://github.com/mozilla/geckodriver/releases)
+- **Edge:** [Download Edge](https://www.microsoft.com/edge) | [EdgeDriver](https://developer.microsoft.com/microsoft-edge/tools/webdriver/)
 
-This installs only the core dependencies without AI analysis capabilities.
-
-### Full Installation (All Features)
+For automatic WebDriver management, install `webdriver-manager`:
 
 ```bash
-pip install youtube-frame-extractor[full]
-```
-
-This installs all dependencies, including CLIP, PyTorch, and other analysis tools.
-
-### Custom Feature Sets
-
-```bash
-# For browser-based extraction only
-pip install youtube-frame-extractor[browser]
-
-# For download-based extraction only
-pip install youtube-frame-extractor[download]
-
-# For AI analysis capabilities
-pip install youtube-frame-extractor[analysis]
-
-# For cloud storage support
-pip install youtube-frame-extractor[cloud]
-```
-
-## Docker Installation
-
-We provide a Docker image for containerized operation, ensuring consistent environments:
-
-```bash
-# Build the Docker image
-docker build -t youtube-frame-extractor .
-
-# Run with Docker, mounting an output directory
-docker run -v $(pwd)/output:/app/output youtube-frame-extractor [COMMANDS]
-```
-
-### Using Docker Compose
-
-```bash
-# Start using docker-compose
-docker-compose up
-```
-
-## Post-Installation Verification
-
-After installation, verify your setup with:
-
-```bash
-# Verify the package is installed
-python -c "import youtube_frame_extractor; print(youtube_frame_extractor.__version__)"
-
-# Run a simple extraction test
-python -m youtube_frame_extractor.cli verify
-```
-
-## Troubleshooting
-
-### Common Issues
-
-#### Browser Driver Issues
-
-If you encounter WebDriver issues:
-
-```bash
-# Install webdriver-manager to handle drivers automatically
 pip install webdriver-manager
 ```
 
-#### FFmpeg Not Found
+---
 
-If ffmpeg commands fail:
+### Step 5: Install AI Dependencies (Optional)
 
-1. Ensure ffmpeg is installed and in your PATH
-2. On Windows, you may need to restart your terminal after installation
-3. Verify installation with `ffmpeg -version`
+For content analysis, object detection, OCR, and VLM analysis, ensure the following dependencies are installed:
 
-#### CUDA/GPU Issues
+```bash
+pip install torch torchvision
+pip install git+https://github.com/openai/CLIP.git
+pip install pytesseract
+```
 
-If you're having GPU acceleration problems:
+If you're using a GPU, install PyTorch with CUDA support from [PyTorch's official site](https://pytorch.org/get-started/locally/).
 
-1. Verify CUDA installation: `python -c "import torch; print(torch.cuda.is_available())"`
-2. Update NVIDIA drivers if needed
+---
 
-### Getting Help
+## Verification
 
-If you continue to experience issues:
+Verify your installation by running a simple extraction command:
 
-1. Check the [GitHub Issues](https://github.com/Harshil7875/YouTube-Frame-Extractor/issues) for similar problems
-2. Open a new issue with detailed information about your environment and the problem
+```python
+from youtube_frame_extractor.extractors import download
 
-## Next Steps
+extractor = download.DownloadExtractor()
+frames = extractor.extract_frames(
+    video_id="dQw4w9WgXcQ",
+    frame_rate=1.0,
+    max_frames=5
+)
 
-Now that you have installed YouTube Frame Extractor, you can:
+print(f"Extracted {len(frames)} frames successfully.")
+```
 
-- Check out the [Quick Start Guide](examples/quickstart.md)
-- Explore [Example Scripts](examples/index.md)
-- Learn about [Configuration Options](api-reference/config.md)
+---
+
+## Troubleshooting
+
+- **ffmpeg not found**: Ensure ffmpeg is installed and added to your PATH.
+- **CUDA issues**: Verify CUDA installation and compatibility with PyTorch.
+- **Browser WebDriver errors**: Confirm that WebDrivers are correctly installed or use `webdriver-manager`.
+
+---
+
+Now you're ready to extract and analyze frames from YouTube videos!
+
